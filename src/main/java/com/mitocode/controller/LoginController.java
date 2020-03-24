@@ -20,7 +20,7 @@ public class LoginController {
 	private EmpleadoService empleadoService;
 
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String loginForm(ModelMap model) {
+	public String loginForm() {
 		return "login";
 	}
 
@@ -41,6 +41,11 @@ public class LoginController {
 			return "login";
 		}
 
+	}
+	
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
+	public String logout() {
+		return "login";
 	}
 
 }
