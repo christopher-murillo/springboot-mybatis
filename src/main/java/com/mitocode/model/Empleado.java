@@ -22,6 +22,7 @@ public class Empleado {
 	private String usuario;
 	private String clave;
 	private TipoEmpleado tipoEmpleado;
+	private List<Skill> skills;
 
 	public Empleado() {
 		super();
@@ -30,7 +31,7 @@ public class Empleado {
 	public Empleado(int idEmpleado, @NotBlank(message = "Nombre es obligatorio") String nombres,
 			@NotBlank(message = "Apellidos es obligatorio") String apellidos, String documento,
 			LocalDate fechaNacimiento, double sueldo, int numeroHijos, String usuario, String clave,
-			TipoEmpleado tipoEmpleado) {
+			TipoEmpleado tipoEmpleado, List<Skill> skills) {
 		super();
 		this.idEmpleado = idEmpleado;
 		this.nombres = nombres;
@@ -42,6 +43,7 @@ public class Empleado {
 		this.usuario = usuario;
 		this.clave = clave;
 		this.tipoEmpleado = tipoEmpleado;
+		this.skills = skills;
 	}
 
 	public int getIdEmpleado() {
@@ -124,12 +126,20 @@ public class Empleado {
 		this.tipoEmpleado = tipoEmpleado;
 	}
 
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
 	@Override
 	public String toString() {
 		return "Empleado [idEmpleado=" + idEmpleado + ", nombres=" + nombres + ", apellidos=" + apellidos
 				+ ", documento=" + documento + ", fechaNacimiento=" + fechaNacimiento + ", sueldo=" + sueldo
 				+ ", numeroHijos=" + numeroHijos + ", usuario=" + usuario + ", clave=" + clave + ", tipoEmpleado="
-				+ tipoEmpleado + "]";
+				+ tipoEmpleado + ", skills=" + skills + "]";
 	}
 
 }

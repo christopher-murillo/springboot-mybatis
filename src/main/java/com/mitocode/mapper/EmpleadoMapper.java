@@ -40,11 +40,11 @@ public interface EmpleadoMapper {
 			javaType = TipoEmpleado.class, 
 			column = "tipoempleado", 
 			one = @One(select = "com.mitocode.mapper.TipoEmpleadoMapper.obtenerTipo"))
-			/*,
+			,
 			@Result(property = "skills", 
 			javaType = List.class, 
 			column = "idEmpleado", 
-			many = @Many(select = "com.mitocode.mapper.SkillMapper.skillsPorEmpleado"))*/
+			many = @Many(select = "com.mitocode.mapper.SkillMapper.skillsPorEmpleado"))
 	})
 	Empleado obtenerPorId(@Param("idEmpleado") Integer idEmpleado);
 

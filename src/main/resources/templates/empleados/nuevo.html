@@ -85,6 +85,16 @@
 								</select>
 							</div>
 						</div>
+						<div class="col-md-6">
+	                         <div class="form-group">
+	                             <label>Skills</label>
+	                             <select th:field="*{skills}" class="select2" multiple data-placeholder="Seleccione">
+	                                 <option th:each="skill : ${T(com.mitocode.enums.Skill).values()}"
+										th:value="${skill}"
+										th:text="${skill.displayValue}"></option>
+	                             </select>
+	                         </div>
+                      	</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">Registrar</button>
