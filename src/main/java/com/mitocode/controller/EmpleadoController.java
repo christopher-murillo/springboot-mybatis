@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mitocode.model.Empleado;
 import com.mitocode.model.Skill;
 import com.mitocode.service.EmpleadoService;
-import com.mitocode.service.SkillService;
 import com.mitocode.service.TipoEmpleadoService;
 
 @Controller
@@ -29,9 +28,6 @@ public class EmpleadoController {
 
 	@Autowired
 	private EmpleadoService empleadoService;
-
-	@Autowired
-	private SkillService skillService;
 
 	@Autowired
 	private TipoEmpleadoService tipoEmpleadoService;
@@ -59,19 +55,8 @@ public class EmpleadoController {
 			return "/empleados/nuevo";
 		}
 
-		String[] skills = empleado.getSkills().stream().map(e -> e.getDescripcion()).toArray(String[]::new);
-
-		int status = empleadoService.registrar(empleado);
-
-		if (status == 1) {
-			Skill skill;
-			for (String s : skills) {
-				skill = new Skill();
-				skill.setDescripcion(s);
-				skill.setEmpleado(empleado);
-				skillService.registrar(skill);
-			}
-		}
+		List<Skill> skills = empleado.getSkills();
+		empleadoService.registrar(empleado, skills);
 
 		return "redirect:/empleados";
 	}
@@ -90,7 +75,8 @@ public class EmpleadoController {
 			model.addAttribute("listaTipos", tipoEmpleadoService.obtenerTipos());
 			return "empleados/editar";
 		}
-		empleadoService.actualizar(empleado);
+		List<Skill> skills = empleado.getSkills();
+		empleadoService.actualizar(empleado, skills);
 		return "redirect:/empleados";
 	}
 

@@ -6,6 +6,16 @@ public class Skill {
 	private String descripcion;
 	private Empleado empleado;
 
+	public Skill() {
+		super();
+	}
+
+	public Skill(String descripcion, Empleado empleado) {
+		super();
+		this.descripcion = descripcion;
+		this.empleado = empleado;
+	}
+
 	public int getIdSkill() {
 		return idSkill;
 	}

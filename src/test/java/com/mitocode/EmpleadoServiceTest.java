@@ -2,6 +2,7 @@ package com.mitocode;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -9,11 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.Assert;
 
 import com.mitocode.model.Empleado;
+import com.mitocode.model.Skill;
 import com.mitocode.model.TipoEmpleado;
 import com.mitocode.service.EmpleadoService;
 import com.mitocode.service.TipoEmpleadoService;
@@ -48,7 +49,21 @@ public class EmpleadoServiceTest {
 
 		empleado.setTipoEmpleado(tipoEmpleado);
 
-		int status = empleadoService.registrar(empleado);
+		Skill s1 = new Skill();
+		s1.setDescripcion("JAVA");
+
+		Skill s2 = new Skill();
+		s2.setDescripcion("NET");
+
+		Skill s3 = new Skill();
+		s3.setDescripcion("PYTHON");
+
+		List<Skill> skills = new ArrayList<>();
+		skills.add(s1);
+		skills.add(s2);
+		skills.add(s3);
+
+		int status = empleadoService.registrar(empleado, skills);
 		Assert.state(status == 1, "Insert failed");
 
 		Assert.state(empleado.getIdEmpleado() > 0, "Insert failed 2");
@@ -57,7 +72,7 @@ public class EmpleadoServiceTest {
 	@Test
 	public void update() {
 		Empleado empleado = new Empleado();
-		empleado.setIdEmpleado(2);
+		empleado.setIdEmpleado(20);
 		empleado.setNombres("Juan");
 		empleado.setApellidos("Cenas Vasquez");
 		empleado.setDocumento("12345678");
@@ -79,7 +94,9 @@ public class EmpleadoServiceTest {
 
 		empleado.setTipoEmpleado(tipoEmpleado);
 
-		int status = empleadoService.actualizar(empleado);
+		List<Skill> skills = new ArrayList<>();
+
+		int status = empleadoService.actualizar(empleado, skills);
 		Assert.state(status == 1, "Update failed");
 	}
 
