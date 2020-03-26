@@ -1,5 +1,6 @@
 package com.mitocode.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,10 @@ public class EmpleadoController {
 			model.addAttribute("listaTipos", tipoEmpleadoService.obtenerTipos());
 			return "empleados/editar";
 		}
-		List<Skill> skills = empleado.getSkills();
+		List<Skill> skills = new ArrayList<>();
+		if (empleado.getSkills() != null) {
+			skills = empleado.getSkills();
+		}
 		empleadoService.actualizar(empleado, skills);
 		return "redirect:/empleados";
 	}
@@ -100,7 +104,7 @@ public class EmpleadoController {
 					skill.setDescripcion(selectValue);
 					return skill;
 				}
-				throw new RuntimeException("Spring says: Não sei o que fazer com esse elemento: " + element);
+				throw new RuntimeException("InitBinder error in element: " + element);
 			}
 		};
 
