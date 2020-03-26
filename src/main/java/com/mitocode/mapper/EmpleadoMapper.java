@@ -56,4 +56,14 @@ public interface EmpleadoMapper {
 	@Results(@Result(property = "tipoEmpleado", javaType = TipoEmpleado.class, column = "tipoempleado", one = @One(select = "com.mitocode.mapper.TipoEmpleadoMapper.obtenerTipo")))
 	Empleado login(@Param("usuario") String usuario, @Param("clave") String clave);
 
+	@Select("SELECT * FROM empleado WHERE usuario = #{usuario}")
+	@Results(
+			@Result(
+					property = "tipoEmpleado", 
+					javaType = TipoEmpleado.class, 
+					column = "tipoempleado", 
+					one = @One(select = "com.mitocode.mapper.TipoEmpleadoMapper.obtenerTipo")
+			)
+	)
+	Empleado obtenerPorUsuario(@Param("usuario") String usuario);
 }
