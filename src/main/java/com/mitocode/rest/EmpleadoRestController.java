@@ -41,7 +41,7 @@ public class EmpleadoRestController {
 	}
 
 	@GetMapping("/{id}")
-	Empleado one(@PathVariable(value = "id") Integer idEmpleado) {
+	Empleado obtenerEmpleado(@PathVariable(value = "id") Integer idEmpleado) {
 		return empleadoService.obtenerPorId(idEmpleado);
 	}
 
