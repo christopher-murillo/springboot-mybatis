@@ -2,8 +2,11 @@ package com.mitocode.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "tipoempleado")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class TipoEmpleado {
 
 	@Id

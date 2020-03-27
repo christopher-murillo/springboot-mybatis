@@ -62,7 +62,7 @@ public class Empleado {
 	private TipoEmpleado tipoEmpleado;
 	
 	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
+//	@JsonIgnore
 	private List<Skill> skills;
 
 	public Empleado() {
