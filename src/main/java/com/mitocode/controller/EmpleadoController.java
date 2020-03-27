@@ -2,6 +2,7 @@ package com.mitocode.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
@@ -56,8 +57,15 @@ public class EmpleadoController {
 			return "/empleados/nuevo";
 		}
 
-		List<Skill> skills = empleado.getSkills();
+//		List<Skill> skills = empleado.getSkills();
+//		empleadoService.registrar(empleado, skills);
+		
+		List<Skill> skills = empleado.getSkills().stream().map(s -> {
+			return new Skill(s.getDescripcion(), empleado);
+		}).collect(Collectors.toList());
+		empleado.setSkills(skills);
 		empleadoService.registrar(empleado, skills);
+
 
 		return "redirect:/empleados";
 	}
@@ -76,9 +84,17 @@ public class EmpleadoController {
 			model.addAttribute("listaTipos", tipoEmpleadoService.obtenerTipos());
 			return "empleados/editar";
 		}
+//		List<Skill> skills = new ArrayList<>();
+//		if (empleado.getSkills() != null) {
+//			skills = empleado.getSkills();
+//		}
+		
 		List<Skill> skills = new ArrayList<>();
 		if (empleado.getSkills() != null) {
-			skills = empleado.getSkills();
+			skills = empleado.getSkills().stream().map(s -> {
+				return new Skill(s.getDescripcion(), empleado);
+			}).collect(Collectors.toList());
+			empleado.setSkills(skills);
 		}
 		empleadoService.actualizar(empleado, skills);
 		return "redirect:/empleados";

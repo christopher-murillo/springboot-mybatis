@@ -1,9 +1,27 @@
 package com.mitocode.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "skills")
 public class Skill {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idskill", columnDefinition = "serial")
 	private int idSkill;
+
+	@Column(length = 50)
 	private String descripcion;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idempleado")
+	@JsonIgnore
 	private Empleado empleado;
 
 	public Skill() {

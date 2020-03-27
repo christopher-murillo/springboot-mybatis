@@ -1,13 +1,21 @@
 package com.mitocode.model;
 
-/**
- * @author Usuario
- *
- */
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tipoempleado")
 public class TipoEmpleado {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idtipoempleado", columnDefinition = "serial")
 	private int idTipoEmpleado;
+	
+	@Column(length = 50)
 	private String descripcion;
+	
+	@Transient
+	private String estado;
 
 	public TipoEmpleado() {
 		super();

@@ -3,25 +3,66 @@ package com.mitocode.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Empleado {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idempleado", columnDefinition = "serial")
 	private int idEmpleado;
+	
+	
 	@NotBlank(message = "Nombre es obligatorio")
+	@Column(length = 50)
 	private String nombres;
+
 	@NotBlank(message = "Apellidos es obligatorio")
+	@Column(length = 100)
 	private String apellidos;
+	
+	@Column(length = 10)
 	private String documento;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "fechanacimiento")
 	private LocalDate fechaNacimiento;
+	
+	@Column(columnDefinition = "NUMERIC")
 	private double sueldo;
+	
+	@Column(name = "numerohijos", columnDefinition = "NUMERIC")
 	private int numeroHijos;
+	
+	@Column(length = 10)
 	private String usuario;
+	
+	@Column(length = 10)
 	private String clave;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tipoempleado")
 	private TipoEmpleado tipoEmpleado;
+	
+	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Skill> skills;
 
 	public Empleado() {
