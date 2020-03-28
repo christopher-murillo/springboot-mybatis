@@ -37,16 +37,16 @@ public class EmpleadoRestController {
 			return new Skill(s.getDescripcion(), empleado);
 		}).collect(Collectors.toList());
 		empleado.setSkills(skills);
-		return ResponseEntity.ok(empleadoService.registrar(empleado, null));
+		return ResponseEntity.ok(empleadoService.registrar(empleado, skills));
 	}
-
-	@GetMapping("/{id}")
+	
+	@GetMapping("{id}")
 	Empleado obtenerEmpleado(@PathVariable(value = "id") Integer idEmpleado) {
 		return empleadoService.obtenerPorId(idEmpleado);
 	}
-
-	@PutMapping("/{id}")
-	public ResponseEntity<Integer> actualizar(@PathVariable(value = "id") Integer idEmpleado,
+	
+	@PutMapping("{id}")
+	ResponseEntity<Integer> actualizar(@PathVariable(value = "id") Integer idEmpleado, 
 			@RequestBody Empleado empleado) {
 		empleado.setIdEmpleado(idEmpleado);
 		List<Skill> skills = new ArrayList<>();
@@ -56,11 +56,15 @@ public class EmpleadoRestController {
 			}).collect(Collectors.toList());
 			empleado.setSkills(skills);
 		}
-		return ResponseEntity.ok(empleadoService.registrar(empleado, skills));
+		return ResponseEntity.ok(empleadoService.actualizar(empleado, skills));
 	}
-
-	@DeleteMapping("/{id}")
-	void eliminar(@PathVariable(value = "id") Integer idEmpleado) {
+	
+	@DeleteMapping("{id}")
+	ResponseEntity<String> eliminar(@PathVariable(value = "id") Integer idEmpleado) {
 		empleadoService.eliminar(idEmpleado);
+		return ResponseEntity.ok("Se elimino");
 	}
+	
+	
+
 }
