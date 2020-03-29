@@ -20,19 +20,18 @@
 		</div>
 
 		<ul class="navigation">
-			<li class="navigation__active"><a href="inicio"><i class="zmdi zmdi-home"></i>
-					Inicio</a></li>
+			<li><a href="#"><i class="zmdi zmdi-home"></i> Inicio</a></li>
 
-			<li><a th:href="@{/empleados}"><i class="zmdi zmdi-account-o"></i>
+			<li th:class="${module == 'empleados' ? 'navigation__active' : ''}"><a th:href="@{/empleados}"><i class="zmdi zmdi-account-o"></i>
 					Empleados</a></li>
 
 			<li
-				class="navigation__sub navigation__sub navigation__sub--toggled">
+				class="navigation__sub" th:classappend="${module == 'reportes' ? 'navigation__sub--active' : ''}">
 				<a href=""><i class="zmdi zmdi-collection-text"></i> Reportes</a>
 
 				<ul>
-					<li><a th:href="@{/reportes}">Reporte N° 1</a></li>
-					<li><a href="report2">Reporte N° 2</a></li>
+					<li th:class="${module == 'reportes' ? 'navigation__active' : ''}"><a th:href="@{/reportes}">Reporte N° 1</a></li>
+					<li><a href="#">Reporte N° 2</a></li>
 				</ul>
 			</li>
 		</ul>

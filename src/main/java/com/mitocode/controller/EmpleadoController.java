@@ -34,6 +34,11 @@ public class EmpleadoController {
 	@Autowired
 	private TipoEmpleadoService tipoEmpleadoService;
 
+	@ModelAttribute("module")
+    String module() {
+        return "empleados";
+    }
+	
 	@GetMapping()
 	public String listarEmpleados(Model model) {
 		model.addAttribute("listaEmpleados", empleadoService.obtenerEmpleados());
