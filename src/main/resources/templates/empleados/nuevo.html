@@ -13,7 +13,7 @@
 
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Nuevo empleado</h4>
+				<h4 class="card-title">Nuevo empleado 2</h4>
 
 				<form th:action="@{/empleados/crear}" th:method="post"
 					th:object="${empleado}">
@@ -88,7 +88,7 @@
 						<div class="col-md-6">
 	                         <div class="form-group">
 	                             <label>Skills</label>
-	                             <select th:field="*{skills}" class="select2" multiple data-placeholder="Seleccione">
+	                             <select id="skills" name="skills" class="select2" multiple data-placeholder="Seleccione">
 	                                 <option th:each="skill : ${T(com.mitocode.enums.Skill).values()}"
 										th:value="${skill}"
 										th:text="${skill.displayValue}"></option>
