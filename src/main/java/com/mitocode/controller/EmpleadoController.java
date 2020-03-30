@@ -48,10 +48,7 @@ public class EmpleadoController {
 	@GetMapping("/nuevo")
 	public String empleadoView(Model model) {
 
-//		model.addAttribute("empleado", new Empleado());
-		if (!model.containsAttribute("empleado")) {
-			model.addAttribute("empleado", new Empleado());
-		}
+		model.addAttribute("empleado", new Empleado());
 		model.addAttribute("listaTipos", tipoEmpleadoService.obtenerTipos());
 
 		return "empleados/nuevo";
