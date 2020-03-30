@@ -59,11 +59,11 @@ public class EmpleadoController {
 //		List<Skill> skills = empleado.getSkills();
 //		empleadoService.registrar(empleado, skills);
 
-		List<Skill> skills = empleado.getSkills().stream().map(s -> {
-			return new Skill(s.getDescripcion(), empleado);
-		}).collect(Collectors.toList());
-		empleado.setSkills(skills);
-		empleadoService.registrar(empleado, null);
+//		List<Skill> skills = empleado.getSkills().stream().map(s -> {
+//			return new Skill(s.getDescripcion(), empleado);
+//		}).collect(Collectors.toList());
+//		empleado.setSkills(skills);
+//		empleadoService.registrar(empleado, null);
 
 		return "redirect:/empleados";
 	}
