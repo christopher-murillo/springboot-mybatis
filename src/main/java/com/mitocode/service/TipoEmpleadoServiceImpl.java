@@ -20,8 +20,8 @@ public class TipoEmpleadoServiceImpl implements TipoEmpleadoService {
 
 	@Override
 	public List<TipoEmpleado> obtenerTipos() {
-//		return tipoEmpleadoMapper.obtenerTipos();
-		return (List<TipoEmpleado>) tipoEmpleadoRepository.findAll();
+		return tipoEmpleadoMapper.obtenerTipos();
+//		return (List<TipoEmpleado>) tipoEmpleadoRepository.findAll();
 	}
 
 }
