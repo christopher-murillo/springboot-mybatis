@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<th:block th:include="fragments/resources"></th:block>
+<th:block th:insert="fragments/resources"></th:block>
 </head>
 
 <body data-ma-theme="blue">
@@ -88,7 +88,7 @@
 						<div class="col-md-6">
 	                         <div class="form-group">
 	                             <label>Skills</label>
-	                             <select name="skills" class="select2" multiple data-placeholder="Seleccione">
+	                             <select th:field="*{skills}" class="select2" multiple data-placeholder="Seleccione">
 	                                 <option th:each="skill : ${T(com.mitocode.enums.Skill).values()}"
 										th:value="${skill}"
 										th:text="${skill.displayValue}"></option>
