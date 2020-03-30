@@ -72,8 +72,7 @@ public class EmpleadoController {
 			}).collect(Collectors.toList());
 			empleado.setSkills(skills);
 		}
-		empleadoService.registrar(empleado, skills);
-
+		empleadoService.registrar(empleado, null);
 
 		return "redirect:/empleados";
 	}
@@ -92,10 +91,12 @@ public class EmpleadoController {
 			model.addAttribute("listaTipos", tipoEmpleadoService.obtenerTipos());
 			return "empleados/editar";
 		}
+		
 //		List<Skill> skills = new ArrayList<>();
 //		if (empleado.getSkills() != null) {
 //			skills = empleado.getSkills();
 //		}
+//		empleadoService.actualizar(empleado, skills);
 		
 		List<Skill> skills = new ArrayList<>();
 		if (empleado.getSkills() != null) {
@@ -104,7 +105,8 @@ public class EmpleadoController {
 			}).collect(Collectors.toList());
 			empleado.setSkills(skills);
 		}
-		empleadoService.actualizar(empleado, skills);
+		empleadoService.actualizar(empleado, null);
+		
 		return "redirect:/empleados";
 	}
 
