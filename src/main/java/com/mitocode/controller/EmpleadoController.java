@@ -62,7 +62,7 @@ public class EmpleadoController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("listaTipos", tipoEmpleadoService.obtenerTipos());
-			return "/empleados/nuevo";
+			return "empleados/nuevo";
 		}
 
 //		List<Skill> skills = empleado.getSkills();
