@@ -21,9 +21,9 @@ import com.mitocode.service.TipoEmpleadoService;
 
 @SpringBootTest
 @ContextConfiguration
-public class EmpleadoServiceTest {
+public class EmpleadoServiceT {
 
-	private static final Logger logger = LoggerFactory.getLogger(EmpleadoServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmpleadoServiceT.class);
 
 	@Autowired
 	private EmpleadoService empleadoService;

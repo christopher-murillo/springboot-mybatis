@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mitocode.service.EmpleadoService;
+import com.mitocode.service.DoctorService;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -28,7 +28,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class ReporteController {
 
 	@Autowired
-	private EmpleadoService empleadoService;
+	private DoctorService doctorService;
 	
 	@ModelAttribute("module")
     String module() {
@@ -44,14 +44,14 @@ public class ReporteController {
 	public ResponseEntity<byte[]> reporte01() throws JRException, IOException {
 
 		JasperReport report = JasperCompileManager.compileReport("src/main/resources/reportes/Reporte01.jrxml");
-		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(empleadoService.obtenerEmpleados());
+		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(doctorService.obtenerDoctor());
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("parametro1", "Hola Mundo");
 		JasperPrint print = JasperFillManager.fillReport(report, parameters, source);
 		byte[] data = JasperExportManager.exportReportToPdf(print);
 
 		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename= " + "empleados.pdf")
+				.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename= " + "medicos.pdf")
 				.contentType(MediaType.APPLICATION_PDF)
 				.contentLength(data.length)
 				.body(data);

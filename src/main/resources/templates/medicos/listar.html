@@ -1,0 +1,108 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<th:block th:include="fragments/resources"></th:block>
+</head>
+
+<body data-ma-theme="blue">
+	<th:block th:insert="fragments/header"></th:block>
+	<th:block th:insert="fragments/menu"></th:block>
+	<section class="content">
+
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Gestionar medicos</h4>
+				<div class="form-row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<a th:href="@{/medicos/nuevo}" class="btn btn-primary">Nuevo
+								medico</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="idTableDoctor" class="table table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombres</th>
+								<th>Apellidos</th>
+								<th>DNI</th>
+								<th>CMP</th>
+								<th>Especialidad</th>
+								<th>Opciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="doctor :  ${listaMedicos}">
+								<tr>
+									<td th:text="${doctor.idDoctor}"></td>
+									<td th:text="${doctor.firstName}"></td>
+									<td th:text="${doctor.lastName}"></td>
+									<td th:text="${doctor.dni}"></td>
+									<td th:text="${doctor.cmp}"></td>
+									<td th:text="${doctor.specialty.name}"></td>
+									<td>
+									<a class="btn btn-primary"
+										th:href="@{/medicos/editar/{id}(id=${doctor.idDoctor})}">
+											<i class="zmdi zmdi-edit zmdi-hc-fw"></i>
+									</a> 
+									<a class="btn btn-danger" href="#"
+										th:onclick="'deleteDoctor(' + ${doctor.idDoctor} + ')'">
+											<i class="zmdi zmdi-delete zmdi-hc-fw"></i>
+									</a></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		
+			$(document).ready( function() {
+				$("#idTableDoctor").DataTable();
+			});
+		
+			function deleteDoctor(id) {
+				swal({
+					title : 'Are you sure?',
+					text : 'You won\'t be able to revert this!',
+					type : 'warning',
+					showCancelButton : true,
+					buttonsStyling : false,
+					confirmButtonClass : 'btn btn-danger',
+					confirmButtonText : 'Yes, delete it!',
+					cancelButtonClass : 'btn btn-secondary'
+				}).then(function(result) {
+					if(result.value){
+						$.ajax({
+							url: "/medicos/eliminar/" + id,
+							type: "GET",
+							success: function(){
+								swal("Done!", "It was succesfully deleted!", "success").then(function(result) {
+									window.location = "/medicos";
+								});
+							},
+							error: function(){
+								swal("Error!", "Intente nuevamente", "error");
+							},
+						})
+						
+					}					
+				});
+			}
+		</script>
+
+	</section>
+</body>
+</html>

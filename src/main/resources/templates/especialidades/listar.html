@@ -1,0 +1,103 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec= "http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<th:block th:include="fragments/resources"></th:block>
+</head>
+
+<body data-ma-theme="blue">
+	<th:block th:insert="fragments/header"></th:block>
+	<th:block th:insert="fragments/menu"></th:block>
+	<section class="content">
+
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Gestionar especialidades</h4>
+				<div sec:authorize="isAuthenticated()">Usuario logueado</div>
+				<div sec:authorize= "hasRole('ROLE_ADMIN')">es ADMIN</div>
+				<div sec:authorize= "hasRole('ROLE_USER')">es USER</div>
+				<div class="form-row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<a th:href="@{/especialidades/nuevo}" class="btn btn-primary">Nueva
+								especialidad</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="idTableSpecialty" class="table table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Opciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="specialty :  ${listaEspecialidades}">
+								<tr>
+									<td th:text="${specialty.idSpecialty}"></td>
+									<td th:text="${specialty.name}"></td>
+									<td>
+									<a class="btn btn-primary"
+										th:href="@{/especialidades/editar/{id}(id=${specialty.idSpecialty})}">
+											<i class="zmdi zmdi-edit zmdi-hc-fw"></i>
+									</a> 
+									<a class="btn btn-danger" href="#"
+										th:onclick="'deleteEmployee(' + ${specialty.idSpecialty} + ')'">
+											<i class="zmdi zmdi-delete zmdi-hc-fw"></i>
+									</a></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		
+			$(document).ready( function() {
+				$("#idTableSpecialty").DataTable();
+			});
+		
+			function deleteEmployee(id) {
+				swal({
+					title : 'Are you sure?',
+					text : 'You won\'t be able to revert this!',
+					type : 'warning',
+					showCancelButton : true,
+					buttonsStyling : false,
+					confirmButtonClass : 'btn btn-danger',
+					confirmButtonText : 'Yes, delete it!',
+					cancelButtonClass : 'btn btn-secondary'
+				}).then(function(result) {
+					if(result.value){
+						$.ajax({
+							url: "/especialidades/eliminar/" + id,
+							type: "GET",
+							success: function(){
+								swal("Done!", "It was succesfully deleted!", "success").then(function(result) {
+									window.location = "/especialidades";
+								});
+							},
+							error: function(){
+								swal("Error!", "Intente nuevamente", "error");
+							},
+						})
+						
+					}					
+				});
+			}
+		</script>
+
+	</section>
+</body>
+</html>

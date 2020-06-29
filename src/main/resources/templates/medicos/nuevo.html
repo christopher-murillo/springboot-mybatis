@@ -1,0 +1,96 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<th:block th:insert="fragments/resources"></th:block>
+</head>
+
+<body data-ma-theme="blue">
+	<th:block th:insert="fragments/header"></th:block>
+	<th:block th:insert="fragments/menu"></th:block>
+	<section class="content">
+
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Nuevo medico</h4>
+
+				<form th:action="@{/medicos/crear}" th:method="post"
+					th:object="${doctor}">
+
+					<div th:if="${error!=null}" th:text="${error}" class="alert alert-danger"></div>
+
+					<!--  <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+						<ul class="list list--check" style="margin-block-end: 0;">
+							<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+						</ul>
+					</div>-->
+
+					<div class="form-row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" th:field="*{firstName}" class="form-control" 
+								th:classappend="${#fields.hasErrors('firstName')} ? is-invalid"
+									placeholder="Nombres" maxlength="80" />
+
+<!-- 								<div th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}" class="invalid-feedback"></div>							 -->
+								<i class="form-group__bar"></i>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" th:field="*{lastName}" class="form-control" 
+								th:classappend="${#fields.hasErrors('lastName')} ? is-invalid"
+									placeholder="Apellidos" maxlength="80" />
+
+<!-- 								<div th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}" class="invalid-feedback"></div>							 -->
+								<i class="form-group__bar"></i>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" th:field="*{dni}" class="form-control" 
+								th:classappend="${#fields.hasErrors('dni')} ? is-invalid"
+									placeholder="DNI" maxlength="8" />
+
+<!-- 								<div th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}" class="invalid-feedback"></div>							 -->
+								<i class="form-group__bar"></i>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" th:field="*{cmp}" class="form-control" 
+								th:classappend="${#fields.hasErrors('cmp')} ? is-invalid"
+									placeholder="CMP" maxlength="80" />
+
+<!-- 								<div th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}" class="invalid-feedback"></div>							 -->
+								<i class="form-group__bar"></i>
+							</div>
+						</div>						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Especialidad</label> <select
+									th:field="*{specialty.idSpecialty}" class="form-control">
+									<option value="-1">Seleccione</option>
+									<option th:each="tipo : ${listaEspecialidades}"
+										th:value="${tipo.idSpecialty}"
+										th:text="${tipo.name}" />
+								</select>
+							</div>
+						</div>
+						
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Registrar</button>
+								<a class="btn btn-danger" th:href="@{'/medicos'}">Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</form>
+				
+			</div>
+		</div>
+	</section>
+</body>
+</html>

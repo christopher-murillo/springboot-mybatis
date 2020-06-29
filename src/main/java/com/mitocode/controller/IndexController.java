@@ -11,7 +11,7 @@ public class IndexController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String inicio(ModelMap model) {
 
-		model.put("name", "Dany");
+		model.put("name", "Christopher");
 
 		return "index";
 
